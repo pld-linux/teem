@@ -8,6 +8,7 @@ License:	SLUL v1 (LGPL v2.1+ with linking exception)
 Group:		Libraries
 Source0:	http://downloads.sourceforge.net/teem/%{name}-%{version}-src.tar.gz
 # Source0-md5:	6b9737e8b7640e18eaf281e830fe59d1
+Patch0:		%{name}-lib.patch
 URL:		http://teem.sourceforge.net/
 BuildRequires:	bzip2-devel
 BuildRequires:	cmake >= 2.4
@@ -38,6 +39,7 @@ Pliki nagłówkowe biblioteki Teem.
 
 %prep
 %setup -q -n %{name}-%{version}-src
+%patch0 -p1
 
 %build
 %cmake . \
@@ -46,12 +48,9 @@ Pliki nagłówkowe biblioteki Teem.
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT%{_libdir}/cmake/teem
 
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
-
-mv $RPM_BUILD_ROOT%{_libdir}/*.cmake $RPM_BUILD_ROOT%{_libdir}/cmake/teem
 
 %clean
 rm -rf $RPM_BUILD_ROOT
