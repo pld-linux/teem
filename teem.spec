@@ -1,4 +1,7 @@
-# TODO: levmar <http://www.ics.forth.gr/~lourakis/levmar/>
+#
+# Conditional build:
+%bcond_without	levmar	# LEVMAR optimization algorithm
+#
 Summary:	Teem - tools to process and visualize scientific data and images
 Summary(pl.UTF-8):	Teem - narzędzia do przetwarzania i wizualizacji danych i obrazów naukowych
 Name:		teem
@@ -9,10 +12,12 @@ Group:		Libraries
 Source0:	http://downloads.sourceforge.net/teem/%{name}-%{version}-src.tar.gz
 # Source0-md5:	6b9737e8b7640e18eaf281e830fe59d1
 Patch0:		%{name}-lib.patch
+Patch1:		%{name}-levmar.patch
 URL:		http://teem.sourceforge.net/
 BuildRequires:	bzip2-devel
 BuildRequires:	cmake >= 2.4
 BuildRequires:	fftw3-devel
+%{?with_levmar:BuildRequires:	levmar-devel}
 BuildRequires:	libpng-devel
 BuildRequires:	rpmbuild(macros) >= 1.605
 BuildRequires:	zlib-devel
@@ -40,10 +45,12 @@ Pliki nagłówkowe biblioteki Teem.
 %prep
 %setup -q -n %{name}-%{version}-src
 %patch0 -p1
+%patch1 -p1
 
 %build
 %cmake . \
-	-DTeem_FFTW3=ON
+	-DTeem_FFTW3=ON \
+	%{?with_levmar:-DTeem_LEVMAR=ON}
 %{__make}
 
 %install
