@@ -6,7 +6,7 @@ Summary:	Teem - tools to process and visualize scientific data and images
 Summary(pl.UTF-8):	Teem - narzędzia do przetwarzania i wizualizacji danych i obrazów naukowych
 Name:		teem
 Version:	1.11.0
-Release:	3
+Release:	4
 License:	SLUL v1 (LGPL v2.1+ with linking exception)
 Group:		Libraries
 Source0:	http://downloads.sourceforge.net/teem/%{name}-%{version}-src.tar.gz
